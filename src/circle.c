@@ -18,8 +18,8 @@ void print_circle(void *ptr) {
 }
 
 Circle circle_init(double radius) {
-    IShape ishape = ishape_init(calculate_area_of_circle);
-    IPrintable iprintable = iprintable_init(print_circle);
+    IShapeVtable ishape = ishape_init(calculate_area_of_circle);
+    IPrintableVtable iprintable = iprintable_init(print_circle);
     Circle c = {
         .iprintable = iprintable,
         .ishape = ishape,
@@ -28,18 +28,18 @@ Circle circle_init(double radius) {
     return c;
 }
 
-FatPointer circle_make_shape(Circle *c) {
-    FatPointer fp = {
-        .ptr = c,
-        .vtable = &c->ishape,
+IShape circle_make_shape(Circle *c) {
+    IShape fp = {
+        .object = c,
+        .vtable = c->ishape,
     };
     return fp;
 }
 
-FatPointer circle_make_printable(Circle *c) {
-    FatPointer fp = {
-        .ptr = c,
-        .vtable = &c->iprintable,
+IPrintable circle_make_printable(Circle *c) {
+    IPrintable fp = {
+        .object = c,
+        .vtable = c->iprintable,
     };
     return fp;
 }

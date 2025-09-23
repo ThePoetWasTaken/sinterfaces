@@ -3,17 +3,16 @@
 
 #include "ishape.h"
 #include "iprintable.h"
-#include "fatpointer.h"
 
 typedef struct _Rectangle {
-    IShape ishape;
-    IPrintable iprintable;
+    IShapeVtable ishape;
+    IPrintableVtable iprintable;
     double height;
     double width; 
 } Rectangle;
 
 Rectangle rectangle_init(double height, double width);
-FatPointer rectangle_make_shape(Rectangle *c);
-FatPointer rectangle_make_printable(Rectangle *c);
+IShape rectangle_make_shape(Rectangle *c);
+IPrintable rectangle_make_printable(Rectangle *c);
 
 #endif

@@ -1,13 +1,12 @@
 #include "iprintable.h"
-#include "ishape.h"
 
-void print(FatPointer fp) {
-    IPrintable *vtable = (IPrintable *)fp.vtable;
-    vtable->print(fp.ptr);
+void print(IPrintable fp) {
+    IPrintableVtable vtable = fp.vtable;
+    vtable.print(fp.object);
 }
 
-IPrintable iprintable_init(void (*print)(void *)) {
-    IPrintable p = {
+IPrintableVtable iprintable_init(void (*print)(void *)) {
+    IPrintableVtable p = {
         .print = print,
     };
     return p;

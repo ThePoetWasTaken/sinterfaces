@@ -9,13 +9,11 @@ int main() {
     Circle c = circle_init(3);
     Rectangle r = rectangle_init(4, 3);
     
-    FatPointer shape1 = circle_make_shape(&c);
-    FatPointer shape2 = rectangle_make_shape(&r);
+    IShape shape1 = circle_make_shape(&c);
+    IShape shape2 = rectangle_make_shape(&r);
 
-    FatPointer printable1 = circle_make_printable(&c);
-    FatPointer printable2 = rectangle_make_printable(&r);
-
-    printf("%lf, %lf\n", calculate_area_of_shape(shape1), calculate_area_of_shape(shape2));
+    IPrintable printable1 = circle_make_printable(&c);
+    IPrintable printable2 = rectangle_make_printable(&r);
 
     print(printable1);
     print(printable2);

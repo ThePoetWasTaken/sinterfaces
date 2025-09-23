@@ -1,13 +1,15 @@
 #ifndef IPRINTABLE_H
 #define IPRINTABLE_H
 
-#include "fatpointer.h"
+#include "macros.h"
 
-typedef struct _IPrintable {
+typedef struct _IPrintableVtable {
     void (*print)(void *);
-} IPrintable;
+} IPrintableVtable;
 
-void print(FatPointer fp);
-IPrintable iprintable_init(void (*print)(void *));
+DEFINE_INTERFACE(IPrintable, IPrintableVtable);
+
+IPrintableVtable iprintable_init(void (*print)(void *));
+void print(IPrintable fp);
 
 #endif

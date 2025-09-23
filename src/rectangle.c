@@ -16,8 +16,8 @@ void print_rect(void *ptr) {
 }
 
 Rectangle rectangle_init(double height, double width) {
-    IShape ishape = ishape_init(calculate_area_of_rectangle);
-    IPrintable iprintable = iprintable_init(print_rect);
+    IShapeVtable ishape = ishape_init(calculate_area_of_rectangle);
+    IPrintableVtable iprintable = iprintable_init(print_rect);
     Rectangle c = {
         .ishape = ishape,
         .iprintable = iprintable,
@@ -27,18 +27,18 @@ Rectangle rectangle_init(double height, double width) {
     return c;
 }
 
-FatPointer rectangle_make_shape(Rectangle *c) {
-    FatPointer fp = {
-        .ptr = c,
-        .vtable = &c->ishape,
+IShape rectangle_make_shape(Rectangle *c) {
+    IShape fp = {
+        .object = c,
+        .vtable = c->ishape,
     };
     return fp;
 }
 
-FatPointer rectangle_make_printable(Rectangle *r) {
-    FatPointer fp = {
-        .ptr = r,
-        .vtable = &r->iprintable,
+IPrintable rectangle_make_printable(Rectangle *r) {
+    IPrintable fp = {
+        .object = r,
+        .vtable = r->iprintable,
     };
     return fp;
 }

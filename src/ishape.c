@@ -1,13 +1,11 @@
 #include "ishape.h"
-#include "fatpointer.h"
 
-double calculate_area_of_shape(FatPointer fp) {
-    IShape *vtable = (IShape *)fp.vtable;
-    return vtable->calculate_area(fp.ptr);
+double calculate_area_of_shape(IShape fp) {
+    return fp.vtable.calculate_area(fp.object);
 }
 
-IShape ishape_init(double (*calculate_area)(void *)) {
-    IShape ishape = {
+IShapeVtable ishape_init(double (*calculate_area)(void *)) {
+    IShapeVtable ishape = {
         .calculate_area = calculate_area,
     };
     return ishape;

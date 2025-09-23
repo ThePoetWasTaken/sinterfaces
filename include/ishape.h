@@ -1,13 +1,15 @@
 #ifndef ISHAPE_H
 #define ISHAPE_H
 
-#include "fatpointer.h"
+#include "macros.h"
 
-typedef struct _IShape {
+typedef struct _IShapeVtable {
     double (*calculate_area)(void *);
-} IShape;
+} IShapeVtable;
 
-IShape ishape_init(double (*calculate_area)(void *));
-double calculate_area_of_shape(FatPointer fp);
+DEFINE_INTERFACE(IShape, IShapeVtable);
+
+IShapeVtable ishape_init(double (*calculate_area)(void *));
+double calculate_area_of_shape(IShape fp);
 
 #endif
